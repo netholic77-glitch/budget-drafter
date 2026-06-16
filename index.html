@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>예산분석지원 시스템 (beta)</title>
+<style>
+  :root {
+    --primary: #1F4E79;
+    --primary-light: #2E75B6;
+    --accent: #FFB300;
+    --bg: #F8F9FA;
+    --card: #FFFFFF;
+    --text: #212529;
+    --text-muted: #6C757D;
+    --border: #DEE2E6;
+    --success: #2E7D32;
+    --warning: #ED6C02;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── Header ─── */
+  header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 60px 24px 80px;
+    text-align: center;
+    position: relative;
+  }
+  header h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .beta-badge {
+    background: var(--accent);
+    color: #5D4037;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    vertical-align: middle;
+  }
+  header p.tagline {
+    margin-top: 16px;
+    font-size: 1.15rem;
+    opacity: 0.92;
+    font-weight: 300;
+  }
+  header p.subtitle {
+    margin-top: 6px;
+    font-size: 0.95rem;
+    opacity: 0.75;
+  }
+
+  /* ─── Main ─── */
+  main {
+    max-width: 1100px;
+    margin: -40px auto 0;
+    padding: 0 24px 60px;
+    position: relative;
+  }
+
+  .launch-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    text-align: center;
+    margin-bottom: 40px;
+    border-top: 4px solid var(--accent);
+  }
+  .launch-card h2 {
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+  }
+  .launch-card p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(31, 78, 121, 0.3);
+  }
+  .btn.secondary {
+    background: white;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+    margin-left: 8px;
+  }
+  .btn.secondary:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  section {
+    margin-bottom: 48px;
+  }
+  section h2 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  /* ─── Feature grid ─── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .feature-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .feature-card:hover {
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .feature-icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  .feature-card h3 {
+    font-size: 1.05rem;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+  .feature-card p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+  }
+
+  /* ─── Workflow ─── */
+  .workflow {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 24px;
+    border: 1px solid var(--border);
+  }
+  .workflow ol {
+    list-style: none;
+    counter-reset: step;
+  }
+  .workflow li {
+    counter-increment: step;
+    padding: 12px 0 12px 50px;
+    position: relative;
+    border-bottom: 1px dashed var(--border);
+  }
+  .workflow li:last-child { border-bottom: none; }
+  .workflow li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .workflow li strong {
+    color: var(--text);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .workflow li span {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  /* ─── Phase status ─── */
+  .phase-list {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 16px 24px;
+    border: 1px solid var(--border);
+  }
+  .phase-list .row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-list .row:last-child { border-bottom: none; }
+  .phase-list .status {
+    display: inline-block;
+    width: 60px;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .phase-list .status.done { color: var(--success); }
+  .phase-list .status.todo { color: var(--text-muted); }
+  .phase-list .name {
+    flex: 1;
+    color: var(--text);
+  }
+  .phase-list .desc {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin-left: 12px;
+  }
+
+  /* ─── Quick start ─── */
+  .quickstart {
+    background: #FFF8E1;
+    border-left: 4px solid var(--accent);
+    padding: 18px 22px;
+    border-radius: 6px;
+  }
+  .quickstart code {
+    background: #FFFFFF;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: var(--primary);
+  }
+  .quickstart pre {
+    background: #2D3748;
+    color: #E2E8F0;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-top: 10px;
+    overflow-x: auto;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* ─── Footer ─── */
+  footer {
+    background: #2D3748;
+    color: #A0AEC0;
+    padding: 28px 24px;
+    text-align: center;
+    font-size: 0.88rem;
+  }
+  footer strong { color: white; }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.9rem; }
+    .btn.secondary { margin-left: 0; margin-top: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>
+    📊 예산분석지원 시스템
+    <span class="beta-badge">beta</span>
+  </h1>
+  <p class="tagline">사업설명서·집행률 데이터를 입력하면 예산분석보고서 초안을 자동으로 생성합니다</p>
+  <p class="subtitle">Streamlit + Gemini 무료 AI · 규칙기반 오프라인 폴백 · 한국 공공기관 예산분석 업무 자동화</p>
+</header>
+
+<main>
+
+  <div class="launch-card">
+    <h2>🚀 시스템 실행</h2>
+    <p>아래 버튼을 클릭하여 분석 앱으로 이동합니다.</p>
+    <a id="launch-btn" href="http://localhost:8501" class="btn" target="_blank">앱 열기</a>
+    <a href="#quickstart" class="btn secondary">실행 방법 보기</a>
+    <p style="margin-top: 14px; font-size: 0.85rem; color: var(--text-muted);">
+      💡 URL을 변경하려면 주소창에 <code>?app=https://your-streamlit-host.com</code>을 추가하세요.
+    </p>
+  </div>
+
+  <script>
+    // ?app=... 쿼리 파라미터로 Streamlit URL을 동적 변경 가능
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const appUrl = params.get('app') || localStorage.getItem('streamlitUrl') || 'http://localhost:8501';
+      const btn = document.getElementById('launch-btn');
+      if (btn) {
+        btn.href = appUrl;
+        btn.textContent = '앱 열기 (' + appUrl.replace(/https?:\/\//, '') + ')';
+      }
+      if (params.get('app')) {
+        localStorage.setItem('streamlitUrl', params.get('app'));
+      }
+    })();
+  </script>
+
+  <section>
+    <h2>주요 기능</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔎</div>
+        <h3>저조사업 스크리닝</h3>
+        <p>집행률 엑셀에서 임계치 미만 사업을 자동 추출. 컬럼 자동 매핑 지원.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📑</div>
+        <h3>다양한 입력 형식</h3>
+        <p>PDF·HWPX·텍스트·엑셀까지. HWP는 변환 안내 + 복붙 우회.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Gemini 무료 AI 분석</h3>
+        <p>사업개요·문제점·분석의견 3개 섹션 본문을 Gemini 무료 모델이 자동 초안 작성. 유료 API 미사용.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h3>규칙기반 오프라인 폴백</h3>
+        <p>키가 없거나 호출이 실패하면 인터넷 없이 집행률·키워드 규칙으로 즉시 초안 생성.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <h3>표준양식 docx</h3>
+        <p>맑은고딕·표제·표 포함 Word 문서 자동 생성. 부서·작성일 자동 채움.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔢</div>
+        <h3>문제점 ↔ 분석의견 1:1</h3>
+        <p>①②③ 번호를 매겨 문제점과 분석의견을 같은 번호끼리 1:1로 대응시켜 검토가 쉬움.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>업무 흐름</h2>
+    <div class="workflow">
+      <ol>
+        <li>
+          <strong>① 저조사업 스크리닝</strong>
+          <span>집행률·실집행률 엑셀(또는 샘플) 업로드 → 컬럼 자동 매핑 → 임계치 입력 → 저조사업 자동 추출 → 분석 대상 선택 시 ②로 자동 반영</span>
+        </li>
+        <li>
+          <strong>② 자료 입력</strong>
+          <span>사업설명서 PDF/HWPX/텍스트(HWP 본문 복붙) 입력 + 사업명·소관부서·회계연도</span>
+        </li>
+        <li>
+          <strong>③ 보고서 생성</strong>
+          <span>Gemini 무료 AI 또는 규칙기반으로 사업개요·문제점·분석의견 자동 초안 → 편집창에서 수정 → docx 다운로드</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <h2>개발 진행 상황</h2>
+    <div class="phase-list">
+      <div class="row">
+        <span class="status done">✅ 완료</span>
+        <span class="name">Phase 1</span>
+        <span class="desc">— 표준양식 docx 생성기 (사업개요·문제점·분석의견 + 원본 발췌)</span>
+      </div>
+      <div class="row">
+        <span class="status done">✅ 완료</span>
+        <span class="name">Phase 2</span>
+        <span class="desc">— 집행률 엑셀 업로드 + 저조사업 스크리닝 (컬럼 자동 매핑)</span>
+      </div>
+      <div class="row">
+        <span class="status done">✅ 완료</span>
+        <span class="name">Phase 3</span>
+        <span class="desc">— PDF·HWPX·텍스트 입력 파서 (HWP는 변환/복붙 안내)</span>
+      </div>
+      <div class="row">
+        <span class="status done">✅ 완료</span>
+        <span class="name">Phase 4</span>
+        <span class="desc">— 규칙기반 오프라인 엔진 (집행률 구간·실집행 격차·키워드 → 문제점/의견 1:1)</span>
+      </div>
+      <div class="row">
+        <span class="status done">✅ 완료</span>
+        <span class="name">Phase 5</span>
+        <span class="desc">— Gemini 무료 AI 엔진 (다중 모델 폴백 + 503 재시도, 실패 시 규칙기반 자동 전환)</span>
+      </div>
+      <div class="row">
+        <span class="status done">✅ 완료</span>
+        <span class="name">Phase 6</span>
+        <span class="desc">— 완전 무료화 (유료 API·외부 저장소 제거, 키 없이도 동작)</span>
+      </div>
+      <div class="row">
+        <span class="status todo">⬜ 향후</span>
+        <span class="name">확장</span>
+        <span class="desc">— 1차/2차 분석 반복 워크플로 (집행부 회신자료 누적 검토)</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="quickstart">
+    <h2>실행 방법</h2>
+    <div class="quickstart">
+      <p><strong>설치 (최초 1회)</strong> — <code>run.bat</code>을 더블클릭하면 자동으로 진행됩니다.</p>
+      <pre>1) 가상환경(.venv) 자동 생성
+2) requirements.txt에서 의존성 자동 설치
+3) Streamlit 서버 자동 실행
+4) 브라우저가 http://localhost:8501 자동 오픈</pre>
+      <p style="margin-top: 14px;"><strong>Gemini 무료 키 설정 (AI 분석을 쓰려면)</strong></p>
+      <pre>1) .env.example을 .env로 복사
+2) GEMINI_API_KEY=...
+   (https://aistudio.google.com/app/apikey 에서 무료 발급)</pre>
+      <p style="margin-top: 14px; color: var(--text-muted); font-size: 0.9rem;">
+        💡 키가 없어도 규칙기반 오프라인 모드로 전체 기능이 동작합니다. (유료 API 미사용)
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>주의사항</h2>
+    <ul style="list-style: none; padding-left: 0;">
+      <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+        ⚠️ <strong>HWP(.hwp) 직접 지원 안 됨</strong> — 한컴오피스에서 [다른 이름으로 저장] → <strong>HWPX</strong> 형식으로 변환 후 업로드하거나, 본문 텍스트 복붙을 사용하세요.
+      </li>
+      <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+        ⚠️ <strong>스캔본 PDF</strong>는 텍스트 추출이 안 됩니다. 텍스트 레이어가 있는 PDF만 지원 (OCR은 추후 지원 예정).
+      </li>
+      <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+        ⚠️ <strong>API 키는 절대 외부에 공유 금지.</strong> <code>.env</code> 파일을 Git 커밋·이메일 첨부 등으로 유출하지 마세요.
+      </li>
+      <li style="padding: 8px 0;">
+        ⚠️ AI 초안은 <strong>검토용 참고자료</strong>입니다. 자료에 없는 사실이 포함됐을 수 있으므로 반드시 검토 후 사용.
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>예산분석지원 시스템 (beta)</strong></p>
+  <p style="margin-top: 4px;">AI 바이브코딩 교육 · 공공기관 예산분석 업무 자동화 도구</p>
+  <p style="margin-top: 4px;">Python · Streamlit · Gemini(무료) · python-docx · pdfplumber</p>
+</footer>
+
+</body>
+</html>

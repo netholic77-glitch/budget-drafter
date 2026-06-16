@@ -1,0 +1,24 @@
+# Vercel은 정적 랜딩 페이지(index.html)만 배포한다.
+# Streamlit 앱과 Python 코드는 별도 호스팅(Streamlit Cloud/Railway/Render 등).
+
+# Python
+.venv/
+__pycache__/
+*.py
+*.pyc
+src/
+requirements.txt
+
+# 환경 변수 (절대 배포 X)
+.env
+.env.*
+
+# 작업 파일
+workspace/
+test_*.docx
+*.bat
+
+# 문서/노트
+README.md
+*.hwp
+*.hwpx

@@ -1,0 +1,30 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# 환경 변수 / 비밀 키 — 절대 커밋 금지
+.env
+.env.local
+.env.*.local
+
+# 작업 결과물
+workspace/
+test_*.docx
+*.docx
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+.vercel
