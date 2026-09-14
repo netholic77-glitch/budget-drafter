@@ -101,3 +101,35 @@
 - 한국관광공사 VISITKOREA 일본어 https://japanese.visitkorea.or.kr/
 - YouTube 고객센터 — 채널 프로필 관리하기 https://support.google.com/youtube/answer/2657964?hl=ko&co=GENIE.Platform%3DDesktop
 - YouTube 고객센터 — 핸들 변경 https://support.google.com/youtube/answer/15920820?hl=ko&co=GENIE.Platform%3DDesktop
+
+---
+
+## 추가 검증 — 채널 전략 편 (strategy.md)
+
+| # | 주장 | 근거 기관 | 판정 |
+|---|---|---|---|
+| 24 | 2025년 방한 일본인 365만 명 | 대한민국 정책브리핑 (문체부·한국관광공사) | ✅ 근거일치 |
+| 25 | 일본인 해외여행객의 28%가 한국 선택 — 미국·대만·태국·베트남보다 높은 1위 | 동상 | ✅ 근거일치 |
+| 26 | 2025년 방한 외래관광객 1,870만 명 돌파 전망, 역대 최다 | 문화체육관광부 보도자료 | ✅ 근거일치 |
+| 27 | K-관광 로드쇼가 도쿄뿐 아니라 후쿠오카·히로시마를 순회 | 대한민국 정책브리핑 | ✅ 근거일치 |
+| 28 | 「재사용된 콘텐츠」 = 독창적 해설·실질적 수정·교육적/오락적 가치 없이 기존 콘텐츠를 재활용하는 채널, **채널 전체** 수익창출 중단 가능 | YouTube 고객센터 | ✅ 근거일치 |
+| 29 | 직접 제작이 아니어도 재해석해 원본과 유의미한 차이가 있으면 재사용 허용 | YouTube 고객센터 | ✅ 근거일치 |
+| 30 | 일본어권 한국 여행 채널의 구독자·조회수 등 경쟁 지표 | — | ⚠️ **공공기관 자료 없음 — 미검증** |
+
+### 쟁점 4 — 경쟁 채널 지표는 검증하지 못했다
+
+`strategy.md`의 "포화 구간 / 빈 구간" 판단은 **검증된 수요 데이터(문체부·관광공사) + 유튜브 공식 정책 + 포맷 구조**에
+근거한 **구조적 추론**이며, 개별 채널을 실측한 결과가 아니다. 일본어 유튜브 채널의 구독자·조회수·업로드 빈도를
+집계한 공공기관 통계는 존재하지 않는다. 벤치마킹 대상 채널 URL이 주어지면 개별 분석을 별도로 붙인다.
+
+### 추가 출처 링크
+
+- 문화체육관광부 — 2025년 외래관광객 역대 최다 1,870만 명 돌파 전망 https://www.mcst.go.kr/site/s_notice/press/pressView.jsp?pSeq=22165
+- 대한민국 정책브리핑 — 고유가·엔저 속 일본인 해외여행지 1위 '한국' https://www.korea.kr/news/policyNewsView.do?newsId=148970929
+- 대한민국 정책브리핑 — 'K-관광 로드쇼' 후쿠오카·히로시마·도쿄 순회 https://www.korea.kr/news/policyNewsView.do?newsId=148941453
+- 한국관광 데이터랩 — 일본 아웃바운드 및 방한 현황 분석 https://datalab.visitkorea.or.kr/site/portal/ex/bbs/View.do?cbIdx=1132&bcIdx=309614
+- 한국관광 데이터랩 — 2025년 일본인 여행 트렌드 예측 https://datalab.visitkorea.or.kr/site/portal/ex/bbs/View.do?cbIdx=1132&bcIdx=308348
+- YouTube 고객센터 — 채널 수익 창출 정책(재사용된 콘텐츠) https://support.google.com/youtube/answer/1311392?hl=ko
+
+> 검증 한계는 앞서 밝힌 것과 동일하다. `korea.kr` · `datalab.visitkorea.or.kr` · `mcst.go.kr` 는 이 세션의
+> 프록시가 직접 열람을 차단해, 검색엔진이 반환한 본문 인용으로 확인했다.
