@@ -73,3 +73,28 @@ python3 render.py     ep01 out.mp4 audio.wav
 
 - 완성본이 30MB를 넘으면 전송이 막힌다. 배포용은 `-crf 24` 로 다시 인코딩한다(약 18MB).
 - 이전 포맷은 `render-clay/`(클레이 음영), `render/`(종이 오려붙이기)에 남아 있다. **현행은 이 폴더다.**
+
+---
+
+## 생성형 이미지로 교체하기 (Gemini)
+
+이 컨테이너에서 `generativelanguage.googleapis.com` 은 **열려 있다**(구글이 직접 응답. 프록시 차단 없음).
+필요한 것은 API 키뿐이다. 키가 있으면 3D 장면 대신 생성형 이미지를 쓴다.
+
+```bash
+export GEMINI_API_KEY=...            # aistudio.google.com/apikey
+python3 gen_images.py images         # 9장 → images/*.png (1080×1920)
+python3 render.py ep01 out.mp4 audio.wav
+```
+
+- `render.py` 는 `images/<장면키>.png` 가 있으면 **자동으로 그걸 쓰고**, 없으면 3D로 폴백한다.
+  환경변수 `SCENE_IMAGES` 로 폴더를 바꿀 수 있다.
+- `gen_images.py` 는 모델 목록을 조회해 이미지 생성 모델을 **자동 선택**한다(하드코딩 없음).
+  `imageConfig.aspectRatio` 미지원 모델이면 그 필드를 빼고 재시도하고, 결과는 9:16으로 센터 크롭한다.
+- **이미 있는 PNG는 건너뛴다.** 마음에 안 드는 컷만 지우고 다시 돌리면 그 컷만 새로 뽑힌다.
+- 프롬프트는 `prompts.py`. `SUFFIX` 가 질감·팔레트·광원·구도를 고정한다 — **컷마다 이걸 빼면 톤이 어긋난다.**
+
+### 주의
+
+- 생성형 이미지는 컷마다 인물 얼굴·옷·소품이 달라진다. 9컷이 한 세계로 보이려면 보통 2~3회 돌려 고른다.
+- 키는 **환경변수로만** 넘긴다. 코드·저장소·로그에 쓰지 않는다. `images/` 는 `.gitignore` 에 있다.

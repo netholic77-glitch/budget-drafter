@@ -1,10 +1,19 @@
 # -*- coding: utf-8 -*-
 """韓国ふしぎ図鑑 — 페이퍼크래프트 렌더러. 새 레퍼런스 자막 규격."""
-import re, sys, time, subprocess, importlib
+import os, re, sys, time, subprocess, importlib
 import numpy as np
 from PIL import Image, ImageDraw
 import lowpoly as L, scenes_paper as S, brand
 from lowpoly import W, H, BW, BH, font
+
+IMGDIR = os.environ.get("SCENE_IMAGES", "images")     # PNG가 있으면 절차생성 대신 그걸 쓴다
+
+
+def scene_image(kind):
+    p = os.path.join(IMGDIR, kind + ".png")
+    if os.path.isfile(p):
+        return Image.open(p).convert("RGB").resize((BW, BH), Image.LANCZOS), True
+    return S.SCENES[kind]().convert("RGB"), False
 
 M = importlib.import_module(sys.argv[1] if len(sys.argv) > 1 else "ep01")
 OUT = sys.argv[2] if len(sys.argv) > 2 else "out.mp4"
@@ -67,8 +76,12 @@ def main():
     bgs, lays, cards = {}, {}, {}
     for i, (s, e, kind, label, sub, note) in enumerate(CUTS):
         is_card = kind.startswith("c06") or kind.startswith("c10") or kind == "_endcard"
-        bgs[i] = (brand.endcard(W, H, EP["next"], EP["closing"]) if kind == "_endcard"
-                  else S.SCENES[kind]().convert("RGB"))
+        if kind == "_endcard":
+            bgs[i] = brand.endcard(W, H, EP["next"], EP["closing"])
+        else:
+            bgs[i], used = scene_image(kind)
+            if used:
+                print("  img:", kind, flush=True)
         cards[i] = is_card
         lays[i] = None if kind == "_endcard" else overlay(label, sub, note, is_card)
     print("scenes ready", flush=True)
