@@ -2,7 +2,7 @@
 """EP.01 景福宮 — 컷 타임라인. script.md 콘티와 1:1 대응."""
 
 EP = dict(no="01", place="景福宮", kana="キョンボックン")
-SRT = "/home/user/budget-drafter/youtube/kankoku-1pun-tabi/01_gyeongbokgung/subtitles.ja.srt"
+SRT = "/home/user/budget-drafter/youtube/kankoku-fushigi-zukan/01_gyeongbokgung/subtitles.ja.srt"
 OUTFIT = "hanbok"                    # 왕궁 편 — 기본 한복
 
 # (start, end, scene, 큰글자, 큰글자색, 포즈, 손팻말, 배경 대체 안내)

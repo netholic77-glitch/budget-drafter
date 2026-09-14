@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 EP = dict(no="03", place="水原華城", kana="スウォンファソン")
-SRT = "/home/user/budget-drafter/youtube/kankoku-1pun-tabi/03_hwaseong/subtitles.ja.srt"
+SRT = "/home/user/budget-drafter/youtube/kankoku-fushigi-zukan/03_hwaseong/subtitles.ja.srt"
 OUTFIT = "dopo"                      # 성곽 편 — 도포
 
 CUTS = [

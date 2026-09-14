@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 EP = dict(no="02", place="仏国寺", kana="プルグクサ")
-SRT = "/home/user/budget-drafter/youtube/kankoku-1pun-tabi/02_bulguksa/subtitles.ja.srt"
+SRT = "/home/user/budget-drafter/youtube/kankoku-fushigi-zukan/02_bulguksa/subtitles.ja.srt"
 OUTFIT = "gat"                       # 사찰 편 — 갓
 
 CUTS = [
