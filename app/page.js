@@ -14,11 +14,46 @@ import * as XLSX from "xlsx";
 import SummaryCards from "@/components/SummaryCards";
 import BudgetTable from "@/components/BudgetTable";
 
+/**
+ * 어떤 열을 무엇으로 읽었는지 보여 준다.
+ * 열을 잘못 잡아도 숫자만 보고는 알 수 없으므로 화면에 드러낸다.
+ */
+function DetectionBanner({ detection }) {
+  const { columns, warnings } = detection;
+  const fields = [
+    ["항목", columns.itemCol],
+    ["부서", columns.deptCol],
+    ["금년도", columns.currentCol],
+    ["비교 기준", columns.previousCol],
+  ];
+
+  return (
+    <>
+      <div className="detect-banner">
+        <span>인식된 열 —</span>
+        {fields.map(([label, value]) => (
+          <span key={label}>
+            <strong>{label}</strong>: {value || "없음"}
+          </span>
+        ))}
+      </div>
+      {warnings?.length > 0 && (
+        <ul className="warning-list">
+          {warnings.map((warning) => (
+            <li key={warning}>{warning}</li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+
 export default function Home() {
   const [sourceName, setSourceName] = useState("");
   const [items, setItems] = useState(null);
   const [summary, setSummary] = useState(null);
   const [pdfText, setPdfText] = useState(null);
+  const [detection, setDetection] = useState(null);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
   const [generating, setGenerating] = useState(false);
@@ -28,6 +63,7 @@ export default function Home() {
     setItems(null);
     setSummary(null);
     setPdfText(null);
+    setDetection(null);
     setError("");
   };
 
@@ -39,6 +75,7 @@ export default function Home() {
     const parsed = parseWorkbook(buffer);
     setItems(parsed.items);
     setSummary(summarize(parsed.items));
+    setDetection({ columns: parsed.columns, warnings: parsed.warnings });
     setSourceName(name);
     setStatus("done");
   }, []);
@@ -55,6 +92,7 @@ export default function Home() {
         const parsed = parseWorkbook(buffer);
         setItems(parsed.items);
         setSummary(summarize(parsed.items));
+        setDetection({ columns: parsed.columns, warnings: parsed.warnings });
         setStatus("done");
       } else if (ext === "pdf") {
         const result = await extractPdfText(buffer);
@@ -146,6 +184,7 @@ export default function Home() {
       {summary && items && (
         <section className="results">
           <h2>{sourceName}</h2>
+          {detection && <DetectionBanner detection={detection} />}
           <SummaryCards summary={summary} />
           <BudgetTable items={items} hasPrevious={summary.hasPrevious} />
           <div className="actions">
