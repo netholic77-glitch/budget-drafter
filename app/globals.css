@@ -231,6 +231,42 @@ body {
   color: var(--down);
 }
 
+/* 증감 없음 / 비교 기준이 없는 항목 */
+.diff-bar.flat {
+  background: var(--text-muted);
+}
+
+.flat-text {
+  color: var(--text-muted);
+}
+
+/* 열 인식 결과·경고 배너 */
+.detect-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.detect-banner strong {
+  color: inherit;
+  font-weight: 600;
+}
+
+.warning-list {
+  margin: 0 0 14px;
+  padding: 10px 14px 10px 30px;
+  border: 1px solid var(--down);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--down);
+}
+
 .actions {
   display: flex;
   gap: 10px;

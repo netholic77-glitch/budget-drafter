@@ -13,6 +13,11 @@ function formatRate(value) {
   return `${sign}${value.toFixed(1)}%`;
 }
 
+function toneOf(diff) {
+  if (diff == null || diff === 0) return "flat";
+  return diff > 0 ? "up" : "down";
+}
+
 const SORTERS = {
   name: (a, b) => a.name.localeCompare(b.name, "ko"),
   current: (a, b) => b.current - a.current,
@@ -28,8 +33,9 @@ export default function BudgetTable({ items, hasPrevious }) {
     return [...items].sort(sorter);
   }, [items, sortKey]);
 
+  // 세부사업이 수천 건인 예산서에서 Math.max(...arr) 는 스택을 넘기므로 reduce 를 쓴다.
   const maxAbsDiff = useMemo(
-    () => Math.max(1, ...items.map((i) => Math.abs(i.diff ?? 0))),
+    () => items.reduce((max, i) => Math.max(max, Math.abs(i.diff ?? 0)), 1),
     [items]
   );
 
@@ -56,7 +62,7 @@ export default function BudgetTable({ items, hasPrevious }) {
         </thead>
         <tbody>
           {sorted.map((item) => (
-            <tr key={item.name}>
+            <tr key={item.id ?? `${item.name}-${item.department}`}>
               <td>{item.name}</td>
               <td>{item.department || "-"}</td>
               <td className="num">{formatWon(item.current)}</td>
@@ -65,11 +71,11 @@ export default function BudgetTable({ items, hasPrevious }) {
                 <td className="num diff-cell">
                   <div className="diff-bar-track">
                     <div
-                      className={`diff-bar ${item.diff >= 0 ? "up" : "down"}`}
+                      className={`diff-bar ${toneOf(item.diff)}`}
                       style={{ width: `${(Math.abs(item.diff ?? 0) / maxAbsDiff) * 100}%` }}
                     />
                   </div>
-                  <span className={item.diff >= 0 ? "up-text" : "down-text"}>
+                  <span className={`${toneOf(item.diff)}-text`}>
                     {formatWon(item.diff)} ({formatRate(item.rate)})
                   </span>
                 </td>
